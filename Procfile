@@ -1,0 +1,1 @@
+web: gunicorn db_visualizer.wsgi --log-gile -
