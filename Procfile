@@ -1,1 +1,1 @@
-web: gunicorn db_visualizer.wsgi --log-gile -
+web: gunicorn db_visualizer.wsgi --log-file -
