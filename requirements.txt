@@ -1,0 +1,8 @@
+asgiref==3.4.1
+click==7.1.2
+Django==4.0
+mysql-connector-python==8.0.27
+protobuf==3.19.1
+sqlparse==0.4.2
+tzdata==2021.5
+urlparser==0.1.2
