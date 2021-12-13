@@ -4,5 +4,6 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('db/<int:db_id>/', views.db, name='db'),
+    path('db/<str:db_name>/', views.db, name='db'),
+    path('db/query', views.query, name='query')
 ]

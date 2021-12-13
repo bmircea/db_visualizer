@@ -11,22 +11,23 @@
     <h1>Informatii baza de date</h1>
     <br>
     <br>
+    <h3>{{ db_name }}</h3>
+    {% if resp %}
     <table>
         <tr>
-          <th>Company</th>
-          <th>Contact</th>
-          <th>Country</th>
+        {% for col in columns %}
+            <th>{{ col }}</th>
+        {% endfor %}
         </tr>
+    {% for row in resp %}
         <tr>
-          <td>Alfreds Futterkiste</td>
-          <td>Maria Anders</td>
-          <td>Germany</td>
+        {% for attribute in row %}
+            <td>{{ attribute }}</td>
+        {% endfor %}
         </tr>
-        <tr>
-          <td>Centro comercial Moctezuma</td>
-          <td>Francisco Chang</td>
-          <td>Mexico</td>
-        </tr>
-      </table>
-    <p>No dbs are available.</p>
+    {% endfor %}
+    </table>
+    {% else %}
+        <p>Tabelul este gol.</p>
+    {% endif %}
 </body>

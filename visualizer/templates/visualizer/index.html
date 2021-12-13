@@ -13,6 +13,11 @@
       margin: 4px 2px;
       cursor: pointer;
     }
+
+    li{
+        list-style-type: none;
+    }
+
     </style>
     </head>
 <body>
@@ -20,17 +25,26 @@
         Tabele din baza de date.
     </h1>
     <br>
+    {% if db_names %}
     <h3>
         Apasa pe un tabel pentru interogare.
     </h3>
-    {% if db_names %}
     <ul>
     {% for db in db_names %}
-        <button onclick="location.href='db/1'" class='button' type='button' >{{ db }}</button>
+        <li><a href="{% url 'db' db %}">
+        <button class='button' type='button' >{{ db }}</button>
+        </a>
+        </li>
     {% endfor %}
     </ul>
 {% else %}
     <p>Nu este disponibila nicio baza de data.</p>
 {% endif %}
     <h3>Pentru comenzi, foloseste campul de mai jos.</h3>
+    <form action="db/query" method="post">
+        {% csrf_token %}
+        <label for="query">Cerere</label>
+        <input type="text" name="query_text" placeholder="Query">
+        <input type="submit" value="Submit">
+    </form>
 </body>

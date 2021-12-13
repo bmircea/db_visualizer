@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<body>
+    {% if resp %}
+        {% for row in resp %}
+            <p>{{ row }}</p>
+        {% endfor %}
+    {% else %}
+        <p>Niciun rezultat.</p>
+    {% endif %}
+
+</body>
+
+
+</html>
