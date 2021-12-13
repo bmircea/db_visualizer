@@ -6,9 +6,9 @@ from urllib.parse import uses_netloc, urlparse
 uses_netloc.append('mysql')
 
 try:
-    #if 'DATABASE_URL' in os.environ:
-    #    url = urlparse(os.environ['DATABASE_URL'])
-    url = urlparse("mysql://bc77456d806ac0:9b74a5e1@eu-cdbr-west-02.cleardb.net/heroku_e65775251b3f1f8?reconnect=true")
+    if 'DATABASE_URL' in os.environ:
+        url = urlparse(os.environ['DATABASE_URL'])
+    #url = urlparse("mysql://bc77456d806ac0:9b74a5e1@eu-cdbr-west-02.cleardb.net/heroku_e65775251b3f1f8?reconnect=true")
 except Exception:
     print('Error:', sys.exc_info())
 
