@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<head>
+    <style>
+    button {
+      border: none;
+      background-color: mediumblue;
+      color: rgb(255, 255, 255);
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
+    }
+    </style>
+    </head>
+<body>
+    <h1>
+        Tabele din baza de date.
+    </h1>
+    <br>
+    <h3>
+        Apasa pe un tabel pentru interogare.
+    </h3>
+    {% if db_names %}
+    <ul>
+    {% for db in db_names %}
+        <button onclick="location.href='db/1'" class='button' type='button' >{{ db }}</button>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>Nu este disponibila nicio baza de data.</p>
+{% endif %}
+    <h3>Pentru comenzi, foloseste campul de mai jos.</h3>
+</body>
