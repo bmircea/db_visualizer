@@ -40,6 +40,7 @@ def query(request):
     conn = create_connection()
     curs = create_cursor(conn)
     curs.execute(query_text)
+    curs.execute("commit;")
     rows = curs.fetchall()
     resp = []
     for row in rows:
