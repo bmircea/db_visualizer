@@ -38,7 +38,7 @@ def query(request):
     # Procesam cererea
     query_text = request.POST['query_text']
     conn = create_connection()
-    curs = create_cursor(conn)
+    curs = conn.cursor(buffered=True)
     curs.execute(query_text)
     curs.execute("commit;")
     rows = curs.fetchall()
