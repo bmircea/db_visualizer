@@ -18,7 +18,7 @@
         {% for col in columns %}
             <th> {{ col }} 
                 <button type='submit' form={{ col }}>
-                    <img src='../assets/sort.png' width=12 height=12>
+                    <img src='sort.png' width=12 height=12>
                 </button>
                 <form id={{ col }} action="{%url 'db' db_name%}" method='post'>
                     {% csrf_token %}
