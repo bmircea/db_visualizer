@@ -18,7 +18,7 @@
         {% for col in columns %}
             <th> {{ col }} 
                 <button type='submit' form={{ col }}>
-                    <img src='sort.png' width=12 height=12>
+                    <img src='https://cdn-icons.flaticon.com/png/128/2582/premium/2582618.png' width=12 height=12>
                 </button>
                 <form id={{ col }} action="{%url 'db' db_name%}" method='post'>
                     {% csrf_token %}
@@ -35,7 +35,7 @@
         {% endfor %}
             <td>
                 <button type="submit" form="{{ row.0 }}{{ 'update' }}" >
-                    <img src='https://cdn-icons.flaticon.com/png/128/2546/premium/2546743.png?token=exp=1642438604~hmac=44a3481a99e2d68c9bb75dc9ff1622a6' width=12 height=12>
+                    <img src='https://cdn-icons.flaticon.com/png/128/2546/premium/2546743.png' width=12 height=12>
                 </button>
                 <button type="submit" form="{{ row.0 }}{{ 'delete' }}">
                     <img src='https://cdn-icons-png.flaticon.com/128/1214/1214428.png' width=12 height=12>
