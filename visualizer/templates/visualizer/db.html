@@ -18,7 +18,7 @@
         {% for col in columns %}
             <th> {{ col }} 
                 <button type='submit' form={{ col }}>
-                    <img src='https://cdn-icons.flaticon.com/png/128/2582/premium/2582618.png?token=exp=1642424691~hmac=7d449b5b4526dd89189b0c7595ecb8a3' width=12 height=12>
+                    <img src='../assets/sort.png' width=12 height=12>
                 </button>
                 <form id={{ col }} action="{%url 'db' db_name%}" method='post'>
                     {% csrf_token %}
