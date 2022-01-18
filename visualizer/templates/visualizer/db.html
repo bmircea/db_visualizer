@@ -46,6 +46,7 @@
             {% csrf_token %}
             <input type="hidden" name="db_name" value={{ db_name }}>
             <input type="hidden" name="id_to_upd" value="{{ row.0 }}">
+            <input type="hidden" name="pk_name" value="{{ pk_name }}">
         </form>
 
         <form id="{{ row.0 }}{{ 'delete' }}" action="{%url 'del'%}" method="post">

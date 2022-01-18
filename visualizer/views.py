@@ -1,6 +1,7 @@
 from asyncio.log import logger
 from cmath import log
 from sqlite3 import DatabaseError
+import sqlite3
 from urllib import request
 from django import template
 from django.db import connection, models
@@ -10,7 +11,6 @@ from django.urls import reverse
 from visualizer.connection import create_connection, create_cursor, get_user_tables, connection_wrapper
 from django.shortcuts import render, redirect
 import logging
-import mysql
 
 def index(request):
     conn = create_connection()
@@ -73,25 +73,81 @@ def update(request):
     logger = logging.getLogger(__name__)
     logger.warning("UPDATE")
     db_name = request.POST['db_name']
-    idtu = request.POST['id_to_upd']
-    logger.warning(idtu)
-    
-    """"
-    query = "UPDATE {2} SET WHERE {0} = {1};".format(
-        request.POST['pk_name'], 
-        idtd, 
-        db_name)
+    pk_value = request.POST['pk_value']
+    pk_name = request.POST['pk_name']
     conn, curs = connection_wrapper()
+    curs.execute("SELECT * FROM {0}".format(db_name))
+    curs.fetchall()
+    cols = curs.column_names
+
+
+    query_update_part = ""
+    logger.warning(curs.description)
+
+
+
+    i = 1
+    for col in cols[1:]:
+        col_val = ''
+        if request.POST[col] == 'None':
+            col_val = 'NULL'
+        else:
+            col_val = request.POST[col]
+        query_update_part += col
+        query_update_part += '='
+        if (curs.description[i][1] == 253):
+            query_update_part += ("'" + col_val + "'")
+        else:
+            query_update_part += col_val
+        query_update_part += ','
+        i += 1
+
+    query_update_part = query_update_part[:-1]
+
+    query = "UPDATE {0} SET {1} WHERE {2} = {3};".format(
+        db_name,
+        query_update_part,
+        pk_name, 
+        pk_value)
+    
+    logger.warning(query)
+
     try:
         curs.execute(query)
-    except mysql.Error as e:
+        curs.execute('commit;')
+    except sqlite3.Error as e:
         msg = 'Fail : {0} -> {1}'.format(query, e) 
         raise DatabaseError(msg)
-    """
-
     
     redir_url = '/visualizer/db/{0}'.format(db_name)
     return redirect(redir_url)
+
+def update_page(request):
+    template = loader.get_template('visualizer/update.html')
+    db_name = request.POST['db_name']    
+    pk_name = request.POST['pk_name']
+    pk_value = request.POST['id_to_upd']    
+    data = []
+
+    conn, curs = connection_wrapper()
+    curs.execute("SELECT * FROM {0} WHERE {1} = {2}".format(db_name, pk_name, pk_value))
+    resp = curs.fetchone()
+    cols = curs.column_names
+    
+    for row in zip(cols, resp):
+        data.append(row)
+
+    data.remove(data[0])
+
+    context = {
+        'db_name': db_name,
+        'pk_name': pk_name,
+        'pk_value': pk_value,
+        'data': data
+    }
+
+
+    return HttpResponse(template.render(context, request))
 
 def query(request):
     # Procesam cererea

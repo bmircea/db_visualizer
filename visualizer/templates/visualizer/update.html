@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<head>
+
+
+</head>
+
+<body>
+    <h1>Actualizare date</h1>
+    <br>
+    <br>
+    <h3>{{ db_name }}</h3>
+        <p>{{ pk_name }}: {{ pk_value }}</p>
+        <form id="upd_form" action="{%url 'updated'%}" method="post">
+            {% csrf_token %}
+            {% for row in data %}
+                <label for=>{{ row.0 }}:</label>
+                <input name="{{ row.0 }}" value="{{ row.1 }}">
+            {% endfor %}
+            <input name="pk_value" type="hidden" value="{{ pk_value }}">
+            <input name="pk_name" type="hidden" value="{{ pk_name }}">
+            <input name="db_name" type="hidden" value="{{ db_name }}">
+        </form>
+
+        <button type='submit' form='upd_form'>Submit</button>
+
+
+</body>
