@@ -16,14 +16,46 @@
     <table>
         <tr>
         {% for col in columns %}
-            <th>{{ col }}</th>
+            <th> {{ col }} 
+                <button type='submit' form={{ col }}>
+                    <img src='https://cdn-icons.flaticon.com/png/128/2582/premium/2582618.png?token=exp=1642424691~hmac=7d449b5b4526dd89189b0c7595ecb8a3' width=12 height=12>
+                </button>
+                <form id={{ col }} action="{%url 'db' db_name%}" method='post'>
+                    {% csrf_token %}
+                    <input type="hidden" name="column_to_sort" value= {{ col }}  />
+                </form>
+            </th>
         {% endfor %}
+            <th>Actiuni</th>
         </tr>
     {% for row in resp %}
         <tr>
         {% for attribute in row %}
             <td>{{ attribute }}</td>
         {% endfor %}
+            <td>
+                <button type="submit" form="{{ row.0 }}{{ 'update' }}" >
+                    <img src='https://cdn-icons.flaticon.com/png/128/2546/premium/2546743.png?token=exp=1642438604~hmac=44a3481a99e2d68c9bb75dc9ff1622a6' width=12 height=12>
+                </button>
+                <button type="submit" form="{{ row.0 }}{{ 'delete' }}">
+                    <img src='https://cdn-icons-png.flaticon.com/128/1214/1214428.png' width=12 height=12>
+                </button>
+            </td>
+        <form id="{{ row.0 }}{{ 'update' }}" action="{%url 'update'%}" method="post">
+                
+            {% csrf_token %}
+            <input type="hidden" name="db_name" value={{ db_name }}>
+            <input type="hidden" name="id_to_upd" value="{{ row.0 }}">
+        </form>
+
+        <form id="{{ row.0 }}{{ 'delete' }}" action="{%url 'del'%}" method="post">
+                
+            {% csrf_token %}
+            <input type="hidden" name="db_name" value={{ db_name }}>
+            <input type="hidden" name="id_to_del" value="{{ row.0 }}">
+            <input type="hidden" name='pk_name' value="{{ pk_name }}">
+        </form>
+        
         </tr>
     {% endfor %}
     </table>

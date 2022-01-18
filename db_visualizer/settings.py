@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-0%d=3f#u405gmrqk^2v8$p-!bn5&akc^2(60k#^_ysx3ibt@fc
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['dbvisualizer20.herokuapp.com']
+ALLOWED_HOSTS = ['dbvisualizer20.herokuapp.com', '127.0.0.1']
 
 
 # Application definition
@@ -134,3 +134,17 @@ STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'WARNING',
+    },
+}
